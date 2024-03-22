@@ -10,7 +10,7 @@ class FutureProviderScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue state = ref.watch(multipleFutureProvider);
     return DefaultLayout(
-      title: 'FutureProviderSCreen',
+      title: 'FutureProviderScreen',
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
