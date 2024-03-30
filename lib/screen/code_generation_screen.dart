@@ -15,7 +15,7 @@ class CodeGenerationScreen extends ConsumerWidget {
       number1: 10,
       number2: 29,
     ));
-    final state5 = ref.watch(gStateNotifierProvider);
+    print('build');
     return DefaultLayout(
       title: 'CodeGenerationScreen',
       body: Column(
@@ -54,7 +54,20 @@ class CodeGenerationScreen extends ConsumerWidget {
             ),
           ),
           Text('State4 : $state4'),
-          Text('State5 : $state5'),
+          Consumer(
+            builder: (context, ref, child) {
+              final state5 = ref.watch(gStateNotifierProvider);
+
+              return Row(
+                children: [
+                  Text('State5: $state5'),
+                  // child 1번만 빌드됨
+                  if(child != null) child,
+                ],
+              );
+            },
+            child: Text('hello'),
+          ),
           Row(
             children: [
               ElevatedButton(
@@ -70,9 +83,27 @@ class CodeGenerationScreen extends ConsumerWidget {
                 child: Text('decrement'),
               ),
             ],
-          )
+          ),
+          ElevatedButton(
+            onPressed: () {
+              ref.invalidate(gStateNotifierProvider);
+            },
+            child: Text('Invalidate'),
+          ),
         ],
       ),
     );
+  }
+}
+
+class _StateFiveWidget extends ConsumerWidget {
+  const _StateFiveWidget({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state5 = ref.watch(gStateNotifierProvider);
+
+    return Text('State5 : $state5');
+    ;
   }
 }
